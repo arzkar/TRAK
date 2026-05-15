@@ -1,0 +1,26 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: trak-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-trak}
+      POSTGRES_USER: ${DB_USER:-trak}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-trak_dev_pass}
+    ports:
+      - "${DB_PORT_EXTERNAL:-5435}:5432"
+    volumes:
+      - trak_pgdata:/var/lib/postgresql/data
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: trak-mqtt
+    restart: unless-stopped
+    ports:
+      - "${MQTT_PORT_EXTERNAL:-1883}:1883"
+      - "${MQTT_WS_PORT_EXTERNAL:-9001}:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+volumes:
+  trak_pgdata:
