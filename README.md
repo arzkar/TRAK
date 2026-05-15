@@ -1,6 +1,6 @@
 # TRAK (Telemetry Remote Analytics Kernel) 🏍️
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Firmware](https://img.shields.io/badge/Firmware-ESP32-blue.svg)](trak-firmware/)
 [![Backend](https://img.shields.io/badge/Backend-Bun-orange.svg)](trak-backend/)
 
@@ -13,6 +13,7 @@
 The system is designed to handle high-frequency data (up to 10Hz) with reliability over flaky WiFi/Cellular connections. It uses a **non-destructive batching** strategy to ensure data integrity while minimizing network overhead.
 
 ### **Core Stack**
+
 - **Hardware**: ESP32 (Firmware written in Arduino/C++ with FreeRTOS).
 - **Protocol**: MQTT (via Mosquitto).
 - **Backend**: Bun + TypeScript.
@@ -27,8 +28,8 @@ The system is designed to handle high-frequency data (up to 10Hz) with reliabili
 - **Non-Destructive Batching**: Buffers readings in memory and publishes them in optimized JSON batches.
 - **Auto-Recovery**: Handles MQTT reconnections and WiFi drops gracefully.
 - **Hybrid Storage**:
-    - **TimescaleDB**: Stores parsed and computed metrics (RPM, Speed, Lean Angle, G-Force) for fast analytics.
-    - **Local JSON**: Stores raw MQTT payloads for auditability and debugging without database bloat.
+  - **TimescaleDB**: Stores parsed and computed metrics (RPM, Speed, Lean Angle, G-Force) for fast analytics.
+  - **Local JSON**: Stores raw MQTT payloads for auditability and debugging without database bloat.
 - **Lean Angle Calculation**: Real-time pitch/roll computation from raw accelerometer/gyroscope data.
 
 ---
@@ -52,7 +53,9 @@ The system is designed to handle high-frequency data (up to 10Hz) with reliabili
 ## 🛠️ Getting Started
 
 ### **1. Backend Setup**
+
 Navigate to the backend directory and spin up the infrastructure:
+
 ```bash
 cd trak-backend
 cp .env.example .env
@@ -62,6 +65,7 @@ bun run dev
 ```
 
 ### **2. Firmware Setup**
+
 1. Open `trak-firmware/main/main.ino` in VS Code (with PlatformIO or Arduino extension).
 2. Create `secrets.h` from the example:
    ```cpp
@@ -75,6 +79,7 @@ bun run dev
 ## 📊 Telemetry Data Model
 
 The platform processes three main types of messages:
+
 - **Telemetry**: High-frequency batches of engine and motion data.
 - **Status**: Periodic heartbeat with device vitals (Heap, RSSI, Uptime).
 - **Crash**: Guru Meditation or exception reports for remote debugging.
@@ -83,8 +88,6 @@ The platform processes three main types of messages:
 
 ## 📜 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the GNU General Public License v3.0. See `LICENSE` for more information.
 
 ---
-
-*Built with ❤️ for the ride.*
